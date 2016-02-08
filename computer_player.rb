@@ -1,3 +1,3 @@
-class ComputerPlayer
+class ComputerPlayer < Player
 
 end

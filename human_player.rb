@@ -1,3 +1,3 @@
-class HumanPlayer
+class HumanPlayer < Player
 
 end
