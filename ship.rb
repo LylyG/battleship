@@ -1,4 +1,5 @@
 require 'byebug'
+require './position.rb'
 
 class Ship
   attr_reader :length, :x_coordinate, :y_coordinate, :ship_pegs
@@ -12,21 +13,24 @@ class Ship
     @y_coordinate = y_coordinate
     @across = across
 
-    ship_pegs = {}
+    ship_pegs = []
 
     if @across
-      ship_end = x_coordinate + @length - 1
+      ship_pegs << Position.new(@x_coordinate, @y_coordinate)
+      ship_end = x_coordinate + @length
       starting_x_coordinate = x_coordinate
-      until ship_pegs.has_key?(ship_end)
-        ship_pegs[starting_x_coordinate] = y_coordinate
-        starting_x_coordinate +=1
-      end
-    else
 
-      ship_end = y_coordinate + @length - 1
+      until starting_x_coordinate == ship_end
+      ship_pegs << Position.new(starting_x_coordinate, @y_coordinate)
+      starting_x_coordinate +=1
+      end
+
+    else
+      ship_pegs << Position.new(@x_coordinate, @y_coordinate)
+      ship_end = y_coordinate + @length
       starting_y_coordinate = y_coordinate
-      until ship_pegs.has_key?(ship_end)
-        ship_pegs[starting_y_coordinate] = x_coordinate
+      until starting_y_coordinate == ship_end
+        ship_pegs << Position.new(@x_coordinate,starting_y_coordinate)
         starting_y_coordinate +=1
       end
     end
@@ -34,15 +38,23 @@ class Ship
     @ship_pegs = ship_pegs
   end
 
-  def covers?(x_coordinate, y_coordinate)
-    if @across
-      ship_pegs.has_key?(x_coordinate) && ship_pegs[x_coordinate] == y_coordinate
-    else
-      ship_pegs.has_key?(y_coordinate) && ship_pegs[y_coordinate] == x_coordinate
+  def covers? (x_coordinate, y_coordinate)
+    ship_pegs.each do |position|
+      return true if position.x_coordinate == x_coordinate && position.y_coordinate == y_coordinate
     end
+    false
+  end
+
+  def overlaps_with? (other)
+    ship_pegs.each do |position|
+      return true if other.covers?(position.x_coordinate, position.y_coordinate)
+    end
+    false
   end
 end
 
 boat = Ship.new(4)
-puts boat.place(2,1)
-puts boat.covers?(2,1)
+boat.place(2,1)
+
+boat2 = Ship.new(6)
+boat2.place(2,1)
