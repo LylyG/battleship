@@ -1,6 +1,7 @@
 require './position.rb'
 require 'byebug'
 
+
 class Ship
   attr_reader :length, :x_coordinate, :y_coordinate, :ship_pegs
 
