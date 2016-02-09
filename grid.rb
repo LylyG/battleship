@@ -1,3 +1,5 @@
+require './ship.rb'
+
 class Grid
   attr_reader :ships
 
@@ -13,7 +15,7 @@ class Grid
     found
   end
 
-  def place_ship(ship, x, y, across)
+  def place_ship(ship, x, y, across)#ship array is all ship objects
     ship.place(x, y, across)
     @ships.each do |s|
       return false if s.overlaps_with?(ship)
@@ -45,6 +47,14 @@ class Grid
 
   private def table_header
     puts "    1   2   3   4   5   6   7   8   9   10"
+  end
+
+  def fire_at(x,y)
+    @ships.each do |s|
+      position = s.fire_at(x,y) #This is the fire_at from the SHIP class
+      return position
+    end
+    false
   end
 
 end

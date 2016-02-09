@@ -8,7 +8,7 @@ class Ship
   def initialize(length)
     @length = length
     @direct_hits = []
-    @ship_pegs = []
+    @ship_pegs = []#ship_pegs is all postiion objects
   end
 
   def place(x, y, across)
@@ -33,7 +33,7 @@ class Ship
   end
 
   def fire_at(x, y)
-    position = covers?(x,y)
+    position = covers?(x,y) #
     position && position.hit!
   end
 
