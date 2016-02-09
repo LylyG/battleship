@@ -5,10 +5,10 @@ class Grid
     @ships = []
   end
 
-  def has_ship_on?(x, y)
+  def has_ship_on?(x,y)
     found = false
     @ships.each do |s|
-      found = true if s.covers?(x, y)
+      found = true if s.covers?(x,y)
     end
     found
   end
@@ -18,15 +18,23 @@ class Grid
     @ships.each do |s|
       return false if s.overlaps_with?(ship)
     end
-    else
     @ships << ship
   end
 
+
   def display
-    puts "    1   2   3   4   5   6   7   8   9   10"
+    table_header
     display_line
-    ("A".."J").each do |l|
-      puts l + " |   |   |   |   |   |   |   |   |   |   |"
+    ("A".."J").each_with_index do |l, i|
+      row = "  |   |   |   |   |   |   |   |   |   |   |"
+      y = i+1
+      row[0] = l
+      (1..10).each do |x|
+        if has_ship_on?(x,y)
+          row[x + (x * 3)] = "O"
+        end
+      end
+      puts row
     end
     display_line
   end
@@ -34,4 +42,9 @@ class Grid
   private def display_line
     puts "  -----------------------------------------"
   end
+
+  private def table_header
+    puts "    1   2   3   4   5   6   7   8   9   10"
+  end
+
 end

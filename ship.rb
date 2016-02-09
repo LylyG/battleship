@@ -18,7 +18,7 @@ class Ship
     end
   end
 
-  def covers?(x_coordinate, y_coordinate)
+  def covers?(x_coordinate, y_coordinate)#Is it here?
     @ship_pegs.each do |position|
       return position if position.x_coordinate == x_coordinate && position.y_coordinate == y_coordinate
     end
