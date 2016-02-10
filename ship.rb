@@ -46,4 +46,4 @@ class Ship
     all_hit
   end
 
-end
+end 
