@@ -8,21 +8,18 @@ class Grid
   end
 
   def has_ship_on?(x,y)
-    found = false
     @ships.each do |s|
-      found = true if s.covers?(x,y)
+      return s if s.covers?(x,y)
     end
-    found
+    false
   end
 
   def place_ship(ship, x, y, across)
     ship.place(x, y, across)
-    @ships.each do |s|
-      return false if s.overlaps_with?(ship)
+    unless @ships.any? {|s| s.overlaps_with?(ship)}
+      @ships << ship
     end
-    @ships << ship
   end
-
 
   def display
     table_header
@@ -30,12 +27,12 @@ class Grid
     ("A".."J").each_with_index do |l, i|
       row = "  |   |   |   |   |   |   |   |   |   |   |"
       y = i+1
-      row[0] = l
+        row[0] = l
       (1..10).each do |x|
         if @fired_at.include?([x,y])
-          row[x + (x * 3)] = "X"
+          row[x * 4] = "X"
         elsif has_ship_on?(x,y)
-          row[x + (x * 3)] = "O"
+          row[x * 4] = "O"
         end
       end
       puts row
@@ -54,16 +51,11 @@ class Grid
 
   def sunk?
     return false if @ships.empty?
-    all_sunk = true
-    @ships.each do |s|
-      all_sunk = false if !s.sunk?
-    end
-    all_sunk
+    @ships.all? {|s| s.sunk?}
   end
 
   def x_of(string)
-    string[0] = ""
-    string.to_i
+    string[1..-1].to_i
   end
 
   def y_of(string)

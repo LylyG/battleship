@@ -40,10 +40,7 @@ class Ship
   def sunk?
     return false if @ship_pegs.empty?
     all_hit = true
-    @ship_pegs.each do |p|
-      all_hit = false if !p.hit?
-    end
-    all_hit
+    @ship_pegs.all? {|position| position.hit?}
   end
 
-end 
+end

@@ -1,5 +1,7 @@
 class Player
-  def grid
-    grid = Grid.new
+  attr_reader :grid
+
+  def initialize
+    @grid = Grid.new
   end
 end
