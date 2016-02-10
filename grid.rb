@@ -1,10 +1,25 @@
-class Grid 
+class Grid
   attr_reader :ships
+
+  EMPTYGRID = %Q{    1   2   3   4   5   6   7   8   9   10
+  -----------------------------------------
+A |   |   |   |   |   |   |   |   |   |   |
+B |   |   |   |   |   |   |   |   |   |   |
+C |   |   |   |   |   |   |   |   |   |   |
+D |   |   |   |   |   |   |   |   |   |   |
+E |   |   |   |   |   |   |   |   |   |   |
+F |   |   |   |   |   |   |   |   |   |   |
+G |   |   |   |   |   |   |   |   |   |   |
+H |   |   |   |   |   |   |   |   |   |   |
+I |   |   |   |   |   |   |   |   |   |   |
+J |   |   |   |   |   |   |   |   |   |   |
+  -----------------------------------------
+}
+
 
   def initialize
     @ships = []
     @fired_at = []
-    @sunk = false
   end
 
   def has_ship_on?(x,y)
@@ -15,6 +30,8 @@ class Grid
   end
 
   def place_ship(ship, x, y, across)
+    across = true if across == "Across"
+    across = false if across == "Down"
     ship.place(x, y, across)
     unless @ships.any? {|s| s.overlaps_with?(ship)}
       @ships << ship

@@ -12,16 +12,15 @@ class ComputerPlayer < Player
   end
 
   def place_ships(array = [2,3,3,4,5])
-    ship_number = 0
-    while (ship_number < array.length)
-      ship_length = array[ship_number]
-      coordinates = "#{@y_coordinate_options.sample}#{rand(1..10)}"
-      direction = rand(2) == 1
-      ship_number +=1 if @grid.place_ship(Ship.new(ship_length),
-      grid.x_of(coordinates), grid.y_of(coordinates), direction)
-    end
+      array.each do |ship_length|
+        coordinates = "#{@y_coordinate_options.sample}#{rand(1..10)}"
+        direction = rand(2) == 1
+        unless @grid.place_ship(Ship.new(ship_length), grid.x_of(coordinates), grid.y_of(coordinates), direction)
+          redo
+        end
+      end
       puts "HAL 9000 has placed its ships.\n"
-  end
+    end
 
   def call_shot
     "#{@y_coordinate_options.sample}#{rand(1..10)}"
