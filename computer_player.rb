@@ -11,7 +11,7 @@ class ComputerPlayer < Player
     @name = "HAL 9000"
   end
 
-  def place_ships(array)
+  def place_ships(array = [2,3,3,4,5])
     ship_number = 0
     while (ship_number < array.length)
       ship_length = array[ship_number]
