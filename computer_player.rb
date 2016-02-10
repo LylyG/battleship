@@ -23,6 +23,6 @@ class ComputerPlayer < Player
     end
 
   def call_shot
-    "#{@y_coordinate_options.sample}#{rand(1..10)}"
+    @shot = "#{@y_coordinate_options.sample}#{rand(1..10)}"
   end
 end
