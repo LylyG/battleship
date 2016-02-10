@@ -1,4 +1,4 @@
-class Grid
+class Grid 
   attr_reader :ships
 
   def initialize
