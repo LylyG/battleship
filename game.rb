@@ -63,10 +63,10 @@ class Game
     welcome
     place_ships
     take_turn
-    until "#{@players[1].grid.display}".include?("X") && !"#{@players[1].grid.display}".include?("0")
+    until "#{display_status}".include?("X") && !"#{display_status}".include?("0")
       take_turn
     end
-    "Congratulations, #{@players[0]}!"
+    return "Congratulations, #{@players[0]}!"
   end
 
 end
