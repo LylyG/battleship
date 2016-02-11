@@ -40,7 +40,7 @@ class Ship
   def sunk?
     return false if @ship_pegs.empty?
     all_hit = true
-    @ship_pegs.all? {|position| position.hit?}
+    @ship_pegs.all? {|p| p.hit?}
   end
 
 end
